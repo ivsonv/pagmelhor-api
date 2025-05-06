@@ -19,6 +19,7 @@ type Config struct {
 	DBUser     string `mapstructure:"DB_USER"`
 	DBPassword string `mapstructure:"DB_PASSWORD"`
 	DBName     string `mapstructure:"DB_NAME"`
+	DBSSLMode  string `mapstructure:"DB_SSL_MODE"`
 
 	RABBITMQ_DEFAULT_USER string `mapstructure:"RABBITMQ_DEFAULT_USER"`
 	RABBITMQ_DEFAULT_PASS string `mapstructure:"RABBITMQ_DEFAULT_PASS"`
