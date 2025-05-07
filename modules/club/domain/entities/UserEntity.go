@@ -14,10 +14,11 @@ func (u UserEntity) TableName() string {
 
 type UserEntity struct {
 	BaseEntity
-	Email    string `json:"email" gorm:"index;unique;null"`
-	Name     string `json:"name" gorm:"not null"`
-	Phone    string `json:"phone" gorm:"null"`
-	Password string `json:"-" gorm:"null"`
+	Email          string `json:"email" gorm:"index;unique;null"`
+	Name           string `json:"name" gorm:"not null"`
+	Phone          string `json:"phone" gorm:"null"`
+	Password       string `json:"-" gorm:"null"`
+	OrganizationID int    `json:"organization_id" gorm:"not null"`
 }
 
 func (u *UserEntity) BeforeSave(tx *gorm.DB) error {
