@@ -54,11 +54,14 @@ func getContainer(cfg *configs.Config) *handlers.Container {
 	db := databases.NewPostgres(cfg)
 
 	// repositories
-	userRepository := repositories.NewUserRepository(db)
+	repository := repositories.NewRepository(db)
+	userRepository := repositories.NewUserRepository(repository)
+	healthzRepository := repositories.NewHealthzRepository(repository)
 
 	// services
 	userService := services.NewUserService(userRepository)
+	healthzService := services.NewHealthzService(healthzRepository)
 
 	// handlers
-	return handlers.NewContainer(userService)
+	return handlers.NewContainer(userService, healthzService)
 }
