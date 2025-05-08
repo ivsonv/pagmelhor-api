@@ -8,13 +8,13 @@ type Error struct {
 }
 
 // Error implementa a interface error
-func (e *Error) Error() string {
+func (e Error) Error() string {
 	return e.Message
 }
 
 // NewError cria um novo erro
-func NewError(tag string, message string, statusCode int) *Error {
-	return &Error{
+func NewError(tag string, message string, statusCode int) Error {
+	return Error{
 		Tag:        tag,
 		Message:    message,
 		StatusCode: statusCode,

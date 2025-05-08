@@ -1,23 +1,21 @@
 package users
 
 import (
-	"net/http"
-
-	"app/modules/club/internal/handlers/users/results"
 	"app/modules/club/utils"
+	"net/http"
 
 	"github.com/labstack/echo/v4"
 )
 
 func (h Handler) Get(c echo.Context) error {
-	users, err := h.UserService.Get(c.Request().Context())
-	if err != nil {
-		return c.JSON(http.StatusInternalServerError, results.ErrInternalServerError)
+	result := h.UserService.Get(c.Request().Context())
+	if !result.IsSuccess {
+		return c.JSON(result.Error.StatusCode, result.Error)
 	}
 
-	if utils.IsEmpty(users) {
+	if utils.IsEmpty(result.Value) {
 		return c.NoContent(http.StatusNoContent)
 	}
 
-	return c.JSON(http.StatusOK, users)
+	return c.JSON(http.StatusOK, result.Value)
 }
