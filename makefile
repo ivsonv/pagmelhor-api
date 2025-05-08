@@ -7,11 +7,8 @@ restore:
 setup:
 	docker compose -f ./docker-compose.yaml up -d
 
-setup-up:
-	docker compose -f ./docker-compose.yaml up -d
-
 setup-down:
-	docker compose -f ./docker-compose.yaml down
+	docker compose -f ./docker-compose.yaml down -v
 
 # Database migrations
 migrate-create-club:

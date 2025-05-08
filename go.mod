@@ -1,6 +1,6 @@
 module app
 
-go 1.24.2
+go 1.22.0
 
 require (
 	github.com/go-chi/jwtauth v1.2.0
