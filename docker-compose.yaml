@@ -6,7 +6,7 @@ services:
   #     context: .
   #     dockerfile: Dockerfile
   #   ports:
-  #     - "4000:4000"
+  #     - "4000:${API_PORT}"
   #   env_file:
   #     - .env
   #   depends_on:
