@@ -1,0 +1,20 @@
+name: pagmelhor-tests-app
+services:
+  postgres_tests:
+    container_name: postgres_tests
+    image: postgres:16.0-alpine
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_HOST=localhost
+      - POSTGRES_PASSWORD=tests
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=tests
+      - POSTGRES_PORT=5432
+    networks:
+      - pagmelhor-backend-tests-network
+
+networks:
+  pagmelhor-backend-tests-network:
+    name: pagmelhor-backend-tests-network
+    driver: bridge

@@ -5,10 +5,19 @@ restore:
 	go mod tidy
 
 setup:
+	docker compose -f ./docker-compose-tests.yaml down -v
 	docker compose -f ./docker-compose.yaml up -d
 
 setup-down:
 	docker compose -f ./docker-compose.yaml down -v
+
+## Setup tests
+setup-tests:
+	docker compose -f ./docker-compose.yaml stop
+	docker compose -f ./docker-compose-tests.yaml down -v
+	docker compose -f ./docker-compose-tests.yaml up -d
+	sleep 5
+	migrate -path modules/club/migrations -database "postgresql://tests:tests@localhost:5432/postgres?sslmode=disable" up
 
 tests-club:
 	go test -tags integration -v -p 1 -cover -failfast -coverprofile=profile.cov ./modules/club/tests/... -v

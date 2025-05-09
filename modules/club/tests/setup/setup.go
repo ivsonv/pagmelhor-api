@@ -20,8 +20,8 @@ func GetSetupEnvironment(t *testing.T) *TestEnvironment {
 		DBDriver:   "postgres",
 		DBHost:     "localhost",
 		DBPort:     "5432",
-		DBUser:     "root",
-		DBPassword: "root",
+		DBUser:     "tests",
+		DBPassword: "tests",
 		DBName:     "postgres",
 		DBSSLMode:  "disable",
 	}
