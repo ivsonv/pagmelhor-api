@@ -4,6 +4,9 @@ run:
 restore:
 	go mod tidy
 
+########################
+###### SETUP API ######
+########################
 setup:
 	docker compose -f ./docker-compose-tests.yaml down -v
 	docker compose -f ./docker-compose.yaml up -d
@@ -11,18 +14,22 @@ setup:
 setup-down:
 	docker compose -f ./docker-compose.yaml down -v
 
-## Setup tests
+########################
+###### SETUP TESTS ######
+########################
 setup-tests:
 	docker compose -f ./docker-compose.yaml stop
 	docker compose -f ./docker-compose-tests.yaml down -v
 	docker compose -f ./docker-compose-tests.yaml up -d
 	sleep 5
-	migrate -path modules/club/migrations -database "postgresql://tests:tests@localhost:5432/postgres?sslmode=disable" up
+	migrate -path modules/club/migrations -database "postgresql://tests:tests@localhost:5432/postgres?sslmode=disable&search_path=club" up
 
 tests-club:
-	go test -tags integration -v -p 1 -cover -failfast -coverprofile=profile.cov ./modules/club/tests/... -v
+	go test -tags endToEnd -v -p 1 -cover -failfast -coverprofile=profile.cov ./modules/club/tests/... -v
 
-# Database migrations
+########################
+###### MIGRATIONS ######
+########################
 migrate-create-club:
 	@read -p "Enter migration name: " name; \
 	timestamp=$$(date +%Y%m%d%H%M%S); \
@@ -34,7 +41,7 @@ migrate-up-club:
 		exit 1; \
 	fi
 	@set -a; source .env; set +a; \
-	migrate -path modules/club/migrations -database "postgresql://$${DB_USER}:$${DB_PASSWORD}@$${DB_HOST}:$${DB_PORT}/$${DB_NAME}?sslmode=disable" up
+	migrate -path modules/club/migrations -database "postgresql://$${DB_USER}:$${DB_PASSWORD}@$${DB_HOST}:$${DB_PORT}/$${DB_NAME}?sslmode=disable&search_path=club" up
 
 migrate-down-club:
 	@if [ ! -f .env ]; then \
@@ -42,4 +49,4 @@ migrate-down-club:
 		exit 1; \
 	fi
 	@set -a; source .env; set +a; \
-	migrate -path modules/club/migrations -database "postgresql://$${DB_USER}:$${DB_PASSWORD}@$${DB_HOST}:$${DB_PORT}/$${DB_NAME}?sslmode=disable" down
+	migrate -path modules/club/migrations -database "postgresql://$${DB_USER}:$${DB_PASSWORD}@$${DB_HOST}:$${DB_PORT}/$${DB_NAME}?sslmode=disable&search_path=club" down
