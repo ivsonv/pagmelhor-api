@@ -29,7 +29,7 @@ func initConfigServer(api *echo.Group) {
 	api.Use(middleware.GzipWithConfig(middleware.GzipConfig{Level: 5}))
 	api.Use(middleware.BodyLimit("1MB"))
 	api.Use(middleware.Recover())
-	api.Use(middleware.Logger())
+	// api.Use(middleware.Logger())
 }
 
 func setConfigCors(api *echo.Group) {

@@ -67,7 +67,7 @@ func (p *postgresImpl) GetConnection(ctx context.Context) *gorm.DB {
 		log.Printf("Could not connect to database after %d attempts", p.MaxRetries)
 		return nil
 	}
-	return p.conn
+	return p.conn.Debug()
 }
 
 func (p *postgresImpl) BeginTransaction(ctx context.Context) (context.Context, error) {

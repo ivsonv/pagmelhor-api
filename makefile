@@ -10,6 +10,9 @@ setup:
 setup-down:
 	docker compose -f ./docker-compose.yaml down -v
 
+tests-club:
+	go test -tags integration -v -p 1 -cover -failfast -coverprofile=profile.cov ./modules/club/tests/... -v
+
 # Database migrations
 migrate-create-club:
 	@read -p "Enter migration name: " name; \

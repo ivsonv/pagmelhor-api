@@ -1,5 +1,6 @@
 # macOS
 .DS_Store
 
+profile.cov
 .data
 .env
