@@ -17,7 +17,12 @@ func NewContractorRepository(repository *Repository) repository.IContractorRepos
 }
 
 func (r *ContractorRepository) Create(ctx context.Context, contractor *entities.ContractorEntity) error {
-	conn := r.repository.db.GetConnection(ctx)
+	conn, err := r.repository.db.GetConnection(ctx)
+	if err != nil {
+		log.Printf("failed to get database connection in create contractor: %v", err)
+		return err
+	}
+
 	q := conn.Table(entities.ContractorEntity{}.TableName())
 
 	if err := q.Create(&contractor).Error; err != nil {

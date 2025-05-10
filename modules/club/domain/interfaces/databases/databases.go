@@ -11,7 +11,7 @@ type Database interface {
 	BeginTransaction(ctx context.Context) (context.Context, error)
 	Rollback(ctx context.Context) (context.Context, error)
 	Commit(ctx context.Context) (context.Context, error)
-	GetConnection(ctx context.Context) *gorm.DB
+	GetConnection(ctx context.Context) (*gorm.DB, error)
 	Ping(ctx context.Context) error
 	Close(ctx context.Context) error
 }

@@ -27,6 +27,6 @@ func TestGetHealthz(t *testing.T) {
 		assert.NoError(t, err)
 		assert.NotEmpty(t, res.Database)
 		assert.Equal(t, "16.0", res.Database.Version)
-		assert.True(t, res.Database.OpenConnections < 2)
+		assert.True(t, res.Database.OpenConnections > 0)
 	})
 }

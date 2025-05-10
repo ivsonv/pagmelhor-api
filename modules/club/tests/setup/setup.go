@@ -5,6 +5,7 @@ import (
 	"app/modules/club"
 	"bytes"
 	"net/http/httptest"
+	"os"
 	"testing"
 
 	"github.com/labstack/echo/v4"
@@ -25,6 +26,8 @@ func GetSetupEnvironment(t *testing.T) *TestEnvironment {
 		DBName:     "postgres",
 		DBSSLMode:  "disable",
 	}
+	os.Setenv("DB_NAME", cfg.DBName)
+
 	e := echo.New()
 
 	// Start the club module with test configuration

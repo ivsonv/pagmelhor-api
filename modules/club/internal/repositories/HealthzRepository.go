@@ -16,10 +16,13 @@ func NewHealthzRepository(repository *Repository) repository.IHealthzRepository 
 }
 
 func (r *HealthzRepository) Get(ctx context.Context) (*entities.HealthCheckRepository, error) {
-	db := r.repository.db.GetConnection(ctx)
+	db, err := r.repository.db.GetConnection(ctx)
+	if err != nil {
+		return nil, err
+	}
 
 	var openConnections int
-	err := db.Raw("SELECT count(*)::int FROM pg_stat_activity WHERE datname = ?", os.Getenv("DB_NAME")).Scan(&openConnections).Error
+	err = db.Raw("SELECT count(*)::int FROM pg_stat_activity WHERE datname = ?", os.Getenv("DB_NAME")).Scan(&openConnections).Error
 	if err != nil {
 		return nil, err
 	}
@@ -45,10 +48,13 @@ func (r *HealthzRepository) Get(ctx context.Context) (*entities.HealthCheckRepos
 }
 
 func (r *HealthzRepository) Ping(ctx context.Context) (bool, error) {
-	db := r.repository.db.GetConnection(ctx)
+	db, err := r.repository.db.GetConnection(ctx)
+	if err != nil {
+		return false, err
+	}
 
 	var rows []any
-	err := db.Raw("SELECT 1").Scan(&rows).Error
+	err = db.Raw("SELECT 1").Scan(&rows).Error
 	if err != nil {
 		return false, err
 	}

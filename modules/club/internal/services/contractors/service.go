@@ -18,4 +18,6 @@ func NewContractorService(contractorRepository repository.IContractorRepository)
 
 var (
 	ErrCreateContractor = results.NewError("CREATE_CONTRACTOR_ERROR", "error creating contractor", http.StatusInternalServerError)
+	ErrInvalidEntity    = results.NewError("INVALID_ENTITY", "invalid to mapentity", http.StatusBadRequest)
+	ErrTimeout          = results.NewError("TIMEOUT_CONTRACTOR_ERROR", "operation contractor timeout", http.StatusRequestTimeout)
 )
