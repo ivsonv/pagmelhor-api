@@ -15,7 +15,7 @@ func (h Handler) Create(c echo.Context) error {
 
 	errors, err := utils.Bind(c, &request)
 	if err != nil {
-		log.Printf("Bind error in handler create benefit: %v", err)
+		log.Printf("Bind error in handlers.benefits.create: %v", err)
 		return c.JSON(http.StatusBadRequest, results.NewErrorWithDetails("BIND_CREATE_BENEFIT_ERROR", "Erro ao processar a requisição", errors))
 	}
 
