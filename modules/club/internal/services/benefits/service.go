@@ -8,17 +8,28 @@ import (
 )
 
 type BenefitService struct {
-	benefitRepository repository.IBenefitRepository
+	contractorRepository repository.IContractorRepository
+	benefitRepository    repository.IBenefitRepository
+	partnerRepository    repository.IPartnerRepository
 }
 
-func NewBenefitService(benefitRepository repository.IBenefitRepository) services.IBenefitServices {
+func NewBenefitService(
+	contractorRepository repository.IContractorRepository,
+	benefitRepository repository.IBenefitRepository,
+	partnerRepository repository.IPartnerRepository,
+) services.IBenefitServices {
 	return &BenefitService{
-		benefitRepository: benefitRepository,
+		contractorRepository: contractorRepository,
+		benefitRepository:    benefitRepository,
+		partnerRepository:    partnerRepository,
 	}
 }
 
 var (
-	ErrCreateBenefit     = results.NewError("CREATE_BENEFIT_ERROR", "error creating benefit", http.StatusInternalServerError)
-	ErrInvalidEntity     = results.NewError("INVALID_BENEFIT_ENTITY", "invalid entity mapping", http.StatusBadRequest)
-	ErrTimeoutOrCanceled = results.NewError("TIMEOUT_OR_CANCELED", "timeout or canceled", http.StatusRequestTimeout)
+	ErrCreateBenefit      = results.NewError("CREATE_BENEFIT_ERROR", "error creating benefit", http.StatusUnprocessableEntity)
+	ErrInvalidEntity      = results.NewError("INVALID_BENEFIT_ENTITY", "invalid entity mapping", http.StatusBadRequest)
+	ErrTimeoutOrCanceled  = results.NewError("TIMEOUT_OR_CANCELED", "timeout or canceled", http.StatusRequestTimeout)
+	ErrPartnerNotFound    = results.NewError("PARTNER_NOT_FOUND", "partner ID not found", http.StatusNotFound)
+	ErrContractorNotFound = results.NewError("CONTRACTOR_NOT_FOUND", "contractor ID not found", http.StatusNotFound)
+	ErrInternalServer     = results.NewError("INTERNAL_SERVER_ERROR", "internal server error", http.StatusInternalServerError)
 )

@@ -77,6 +77,89 @@ func (r *PartnerRepository) GetBySlug(ctx context.Context, slug string) (*entiti
 	return &partner, nil
 }
 
+func (r *PartnerRepository) GetById(ctx context.Context, id int) (*entities.PartnerEntity, error) {
+	q, err := r.getTransaction(ctx, false)
+	if err != nil {
+		return nil, err
+	}
+
+	partner := entities.PartnerEntity{}
+	if err := q.Where("id = ?", id).First(&partner).Error; err != nil {
+		log.Printf("failed to repository.partner.getById: %v", err)
+		return nil, err
+	}
+
+	return &partner, nil
+}
+
+func (r *PartnerRepository) ExistsById(ctx context.Context, id int) (bool, error) {
+	q, err := r.getTransaction(ctx, false)
+	if err != nil {
+		return false, err
+	}
+
+	exists := false
+	err = q.Select("1").Where("id = ?", id).Find(&exists).Error
+
+	if err != nil {
+		log.Printf("failed to repository.partner.existsById: %v", err)
+		return false, err
+	}
+
+	return exists, nil
+}
+
+func (r *PartnerRepository) ExistsByCpfCnpj(ctx context.Context, cpfCnpj string) (bool, error) {
+	q, err := r.getTransaction(ctx, false)
+	if err != nil {
+		return false, err
+	}
+
+	exists := false
+	err = q.Select("1").Where("cpf_cnpj = ?", cpfCnpj).Find(&exists).Error
+
+	if err != nil {
+		log.Printf("failed to repository.partner.existsByCpfCnpj: %v", err)
+		return false, err
+	}
+
+	return exists, nil
+}
+
+func (r *PartnerRepository) ExistsByEmail(ctx context.Context, email string) (bool, error) {
+	q, err := r.getTransaction(ctx, false)
+	if err != nil {
+		return false, err
+	}
+
+	exists := false
+	err = q.Select("1").Where("email = ?", email).Find(&exists).Error
+
+	if err != nil {
+		log.Printf("failed to repository.partner.existsByEmail: %v", err)
+		return false, err
+	}
+
+	return exists, nil
+}
+
+func (r *PartnerRepository) ExistsBySlug(ctx context.Context, slug string) (bool, error) {
+	q, err := r.getTransaction(ctx, false)
+	if err != nil {
+		return false, err
+	}
+
+	exists := false
+	err = q.Select("1").Where("slug = ?", slug).Find(&exists).Error
+
+	if err != nil {
+		log.Printf("failed to repository.partner.existsBySlug: %v", err)
+		return false, err
+	}
+
+	return exists, nil
+}
+
 func (r *PartnerRepository) getTransaction(ctx context.Context, includeDeleted bool) (*gorm.DB, error) {
 	conn, err := r.repository.db.GetConnection(ctx)
 	if err != nil {

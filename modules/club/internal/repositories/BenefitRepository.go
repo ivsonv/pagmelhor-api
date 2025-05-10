@@ -74,6 +74,23 @@ func (r *BenefitRepository) GetByPartnerID(ctx context.Context, partnerID int) (
 	return benefits, nil
 }
 
+func (r *BenefitRepository) ExistsById(ctx context.Context, id int) (bool, error) {
+	q, err := r.getTransaction(ctx, false)
+	if err != nil {
+		return false, err
+	}
+
+	exists := false
+	err = q.Select("1").Where("id = ?", id).Find(&exists).Error
+
+	if err != nil {
+		log.Printf("failed to repository.benefit.existsById: %v", err)
+		return false, err
+	}
+
+	return exists, nil
+}
+
 func (r *BenefitRepository) getTransaction(ctx context.Context, includeDeleted bool) (*gorm.DB, error) {
 	conn, err := r.repository.db.GetConnection(ctx)
 	if err != nil {

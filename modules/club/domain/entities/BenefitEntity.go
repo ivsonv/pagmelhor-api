@@ -3,6 +3,7 @@ package entities
 import (
 	"app/modules/club/domain"
 	"app/modules/club/domain/enums"
+	"errors"
 )
 
 func (b BenefitEntity) TableName() string {
@@ -23,4 +24,16 @@ type BenefitEntity struct {
 	PartnerID     *int                `gorm:"null" name:"partner_id"`
 	Partner       *PartnerEntity      `gorm:"foreignKey:PartnerID" name:"partner,omitempty"`
 	BenefitItems  []BenefitItemEntity `gorm:"foreignKey:BenefitID" name:"benefit_items"`
+}
+
+func (b *BenefitEntity) IsValid() error {
+	if b.ContractorID == nil {
+		return errors.New("contractor_id is required")
+	}
+
+	if b.PartnerID == nil {
+		return errors.New("partner_id is required")
+	}
+
+	return nil
 }

@@ -93,3 +93,78 @@ DB_PASSWORD=root
 DB_USER=root
 DB_PORT=5432
 ```
+
+
+
+### Erros Comuns
+
+#### Ubuntu
+
+Se encontrar o erro "address already in use" (endereço já em uso):
+
+1. Verificar processos usando a porta
+```sh
+sudo lsof -i -P -n
+```
+
+2. Encerrar o processo
+```sh
+sudo kill -9 PID
+```
+
+Onde PID é o número do processo identificado no comando anterior.
+
+### Notas por Sistema Operacional
+
+#### Windows
+
+1. **WSL (Windows Subsystem for Linux)**
+   - Recomendamos fortemente usar o WSL2 para desenvolvimento
+   - Instale o Docker Desktop com suporte WSL2
+   - Execute todos os comandos dentro do ambiente WSL
+
+2. **Permissões**
+   - Execute o Docker Desktop como administrador
+   - Certifique-se que o WSL2 está configurado corretamente:
+   ```powershell
+   wsl --set-default-version 2
+   ```
+
+#### macOS
+
+1. **Docker Desktop**
+   - Certifique-se de alocar memória suficiente para o Docker Desktop
+   - Recomendado: 8GB RAM, 2 CPUs
+   - Ajuste em: Docker Desktop > Settings > Resources
+
+2. **Portas**
+   - Se encontrar conflitos de porta, verifique serviços nativos:
+   ```sh
+   sudo lsof -i :5432  # POSTGRES
+   sudo lsof -i :6379  # Redis
+   sudo lsof -i :4566  # LocalStack
+   ```
+
+#### Linux
+
+1. **Permissões Docker**
+   - Adicione seu usuário ao grupo docker:
+   ```sh
+   sudo usermod -aG docker $USER
+   newgrp docker
+   ```
+
+2. **Serviços Locais**
+   - Certifique-se que não há instâncias locais do POstgres ou Redis:
+   ```sh
+   sudo systemctl stop postgres
+   sudo systemctl stop redis
+   ```
+
+3. **Firewall**
+   - Se estiver usando UFW, libere as portas necessárias:
+   ```sh
+   sudo ufw allow 3306
+   sudo ufw allow 6379
+   sudo ufw allow 4566
+   ```

@@ -72,8 +72,9 @@ func getContainer(cfg *configs.Config) *handlers.Container {
 	healthzService := healthz.NewHealthzService(healthzRepository)
 	contractorService := contractors.NewContractorService(contractorRepository)
 	partnerService := partners.NewPartnerService(partnerRepository)
-	benefitService := benefits.NewBenefitService(benefitRepository)
-	benefitItemService := benefit_items.NewBenefitItemService(benefitItemRepository)
+
+	benefitService := benefits.NewBenefitService(contractorRepository, benefitRepository, partnerRepository)
+	benefitItemService := benefit_items.NewBenefitItemService(benefitItemRepository, benefitRepository)
 
 	// handlers
 	return handlers.NewContainer(userService, healthzService, contractorService, partnerService, benefitService, benefitItemService)

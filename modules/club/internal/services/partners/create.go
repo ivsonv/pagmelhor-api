@@ -38,18 +38,30 @@ func (s *PartnerService) Create(ctx context.Context, req requests.CreatePartnerR
 }
 
 func (s *PartnerService) validateDuplicates(ctx context.Context, entity *entities.PartnerEntity) *results.Error {
-	partner, _ := s.partnerRepository.GetByCpfCnpj(ctx, entity.CpfCnpj)
-	if partner != nil {
+	exists, err := s.partnerRepository.ExistsByCpfCnpj(ctx, entity.CpfCnpj)
+	if err != nil {
+		return &ErrInternalServer
+	}
+
+	if exists {
 		return &ErrCpfCnpjDuplicated
 	}
 
-	partner, _ = s.partnerRepository.GetByEmail(ctx, entity.Email)
-	if partner != nil {
+	exists, err = s.partnerRepository.ExistsByEmail(ctx, entity.Email)
+	if err != nil {
+		return &ErrInternalServer
+	}
+
+	if exists {
 		return &ErrEmailDuplicated
 	}
 
-	partner, _ = s.partnerRepository.GetBySlug(ctx, entity.Slug)
-	if partner != nil {
+	exists, err = s.partnerRepository.ExistsBySlug(ctx, entity.Slug)
+	if err != nil {
+		return &ErrInternalServer
+	}
+
+	if exists {
 		return &ErrSlugDuplicated
 	}
 

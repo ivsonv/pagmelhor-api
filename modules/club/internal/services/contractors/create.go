@@ -27,7 +27,6 @@ func (s *ContractorService) Create(ctx context.Context, req requests.CreateContr
 		if utils.IsTimeout(ctx) {
 			return results.Failure[responses.CreateContractorResponseDto](ErrTimeoutOrCanceled)
 		}
-
 		return results.Failure[responses.CreateContractorResponseDto](ErrCreateContractor)
 	}
 

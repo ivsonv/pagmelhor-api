@@ -17,7 +17,7 @@ func NewContractorService(contractorRepository repository.IContractorRepository)
 }
 
 var (
-	ErrCreateContractor  = results.NewError("CREATE_CONTRACTOR_ERROR", "error creating contractor", http.StatusInternalServerError)
+	ErrCreateContractor  = results.NewError("CREATE_CONTRACTOR_ERROR", "error creating contractor", http.StatusUnprocessableEntity)
 	ErrInvalidEntity     = results.NewError("INVALID_ENTITY", "invalid to mapentity", http.StatusBadRequest)
 	ErrTimeoutOrCanceled = results.NewError("TIMEOUT_OR_CANCELED_CONTRACTOR_ERROR", "operation contractor timeout or canceled", http.StatusRequestTimeout)
 	ErrCpfCnpjDuplicated = results.NewError("CPF_CNPJ_DUPLICATED", "cpf/cnpj already exists", http.StatusConflict)

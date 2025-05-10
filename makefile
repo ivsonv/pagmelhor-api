@@ -1,6 +1,12 @@
 run:
 	go run cmd/main.go
 
+build:
+	rm -rf bin/
+	rm -f profile.cov
+	go clean
+	go build -o bin/api cmd/main.go
+
 restore:
 	go mod tidy
 
@@ -13,6 +19,7 @@ setup:
 
 setup-down:
 	docker compose -f ./docker-compose.yaml down -v
+
 
 ########################
 ###### SETUP TESTS ######

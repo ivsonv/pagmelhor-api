@@ -10,4 +10,5 @@ type IBenefitRepository interface {
 	GetByID(ctx context.Context, id int) (*entities.BenefitEntity, error)
 	GetByContractorID(ctx context.Context, contractorID int) ([]*entities.BenefitEntity, error)
 	GetByPartnerID(ctx context.Context, partnerID int) ([]*entities.BenefitEntity, error)
+	ExistsById(ctx context.Context, id int) (bool, error)
 }

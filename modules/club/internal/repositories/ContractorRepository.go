@@ -77,6 +77,38 @@ func (r *ContractorRepository) GetBySlug(ctx context.Context, slug string) (*ent
 	return &contractor, nil
 }
 
+func (r *ContractorRepository) ExistsById(ctx context.Context, id int) (bool, error) {
+	q, err := r.getTransaction(ctx, false)
+	if err != nil {
+		return false, err
+	}
+
+	exists := false
+	err = q.Select("1").Where("id = ?", id).Limit(1).Find(&exists).Error
+
+	if err != nil {
+		log.Printf("failed to repository.contractor.existsById: %v", err)
+		return false, err
+	}
+
+	return exists, nil
+}
+
+func (r *ContractorRepository) GetById(ctx context.Context, id int) (*entities.ContractorEntity, error) {
+	q, err := r.getTransaction(ctx, false)
+	if err != nil {
+		return nil, err
+	}
+
+	contractor := entities.ContractorEntity{}
+	if err := q.Where("id = ?", id).First(&contractor).Error; err != nil {
+		log.Printf("failed to repository.contractor.getById: %v", err)
+		return nil, err
+	}
+
+	return &contractor, nil
+}
+
 func (r *ContractorRepository) getTransaction(ctx context.Context, includeDeleted bool) (*gorm.DB, error) {
 	conn, err := r.repository.db.GetConnection(ctx)
 	if err != nil {

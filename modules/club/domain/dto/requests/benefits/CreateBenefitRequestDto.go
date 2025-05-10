@@ -13,8 +13,8 @@ type CreateBenefitRequestDto struct {
 	DiscountValue float64            `json:"discount_value"`
 	Status        int16              `json:"status" validate:"required"`
 	Notes         string             `json:"notes"`
-	ContractorID  *int               `json:"contractor_id"`
-	PartnerID     *int               `json:"partner_id"`
+	ContractorID  *int               `json:"contractor_id" validate:"required_without_all=PartnerID,gt=0"`
+	PartnerID     *int               `json:"partner_id" validate:"required_without_all=ContractorID,gt=0"`
 }
 
 func (dto CreateBenefitRequestDto) ToMapEntity() *entities.BenefitEntity {
