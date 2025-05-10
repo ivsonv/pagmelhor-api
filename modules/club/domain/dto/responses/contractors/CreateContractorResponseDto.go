@@ -1,5 +1,5 @@
 package contractors
 
-type ContractorResponseDto struct {
+type CreateContractorResponseDto struct {
 	ID int `json:"id"`
 }

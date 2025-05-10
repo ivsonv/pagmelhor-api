@@ -9,5 +9,5 @@ import (
 )
 
 type IContractorServices interface {
-	Create(ctx context.Context, request requests.ContractorRequestDto) results.Result[responses.ContractorResponseDto]
+	Create(ctx context.Context, request requests.CreateContractorRequestDto) results.Result[responses.CreateContractorResponseDto]
 }

@@ -2,7 +2,7 @@ package contractors
 
 import "app/modules/club/domain/entities"
 
-type ContractorRequestDto struct {
+type CreateContractorRequestDto struct {
 	Name            string `json:"name" validate:"required,min=3,max=100"`
 	CpfCnpj         string `json:"cpf_cnpj" validate:"required,cpf_cnpj"`
 	Email           string `json:"email" validate:"required,email"`
@@ -20,7 +20,7 @@ type ContractorRequestDto struct {
 	MetaKeywords    string `json:"meta_keywords" validate:"omitempty,max=200"`
 }
 
-func (dto ContractorRequestDto) ToMapEntity() *entities.ContractorEntity {
+func (dto CreateContractorRequestDto) ToMapEntity() *entities.ContractorEntity {
 	return &entities.ContractorEntity{
 		Name:            dto.Name,
 		CpfCnpj:         dto.CpfCnpj,

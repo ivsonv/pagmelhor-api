@@ -12,7 +12,7 @@ import (
 )
 
 func (h Handler) Create(c echo.Context) error {
-	request := requests.ContractorRequestDto{}
+	request := requests.CreateContractorRequestDto{}
 
 	errors, err := utils.Bind(c, &request)
 	if err != nil {

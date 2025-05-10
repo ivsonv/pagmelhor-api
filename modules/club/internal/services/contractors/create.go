@@ -11,28 +11,28 @@ import (
 	"app/modules/club/utils"
 )
 
-func (s *ContractorService) Create(ctx context.Context, req requests.ContractorRequestDto) results.Result[responses.ContractorResponseDto] {
+func (s *ContractorService) Create(ctx context.Context, req requests.CreateContractorRequestDto) results.Result[responses.CreateContractorResponseDto] {
 	entity := req.ToMapEntity()
 	if entity == nil {
 		log.Printf("ToMapEntity services.create contractor: %v", ErrInvalidEntity)
-		return results.Failure[responses.ContractorResponseDto](ErrInvalidEntity)
+		return results.Failure[responses.CreateContractorResponseDto](ErrInvalidEntity)
 	}
 
 	if err := s.validateDuplicates(ctx, entity); err != nil {
-		return results.Failure[responses.ContractorResponseDto](*err)
+		return results.Failure[responses.CreateContractorResponseDto](*err)
 	}
 
 	err := s.contractorRepository.Create(ctx, entity)
 	if err != nil {
 		if utils.IsTimeout(ctx) {
-			return results.Failure[responses.ContractorResponseDto](ErrTimeoutOrCanceled)
+			return results.Failure[responses.CreateContractorResponseDto](ErrTimeoutOrCanceled)
 		}
 
-		return results.Failure[responses.ContractorResponseDto](ErrCreateContractor)
+		return results.Failure[responses.CreateContractorResponseDto](ErrCreateContractor)
 	}
 
 	return results.Success(
-		responses.ContractorResponseDto{
+		responses.CreateContractorResponseDto{
 			ID: entity.ID,
 		},
 	)
