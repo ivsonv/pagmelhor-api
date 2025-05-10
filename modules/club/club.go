@@ -4,7 +4,7 @@ import (
 	"app/configs"
 	"app/modules/club/internal/handlers"
 	"app/modules/club/internal/repositories"
-	benefit_items "app/modules/club/internal/services/benefit_items"
+	"app/modules/club/internal/services/benefit_items"
 	"app/modules/club/internal/services/benefits"
 	"app/modules/club/internal/services/contractors"
 	"app/modules/club/internal/services/healthz"
