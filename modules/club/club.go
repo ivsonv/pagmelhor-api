@@ -6,6 +6,7 @@ import (
 	"app/modules/club/internal/repositories"
 	"app/modules/club/internal/services/contractors"
 	"app/modules/club/internal/services/healthz"
+	"app/modules/club/internal/services/partners"
 	"app/modules/club/internal/services/users"
 	"log"
 
@@ -60,10 +61,14 @@ func getContainer(cfg *configs.Config) *handlers.Container {
 	userRepository := repositories.NewUserRepository(repository)
 	healthzRepository := repositories.NewHealthzRepository(repository)
 	contractorRepository := repositories.NewContractorRepository(repository)
+	partnerRepository := repositories.NewPartnerRepository(repository)
+
 	// services
 	userService := users.NewUserService(userRepository)
 	healthzService := healthz.NewHealthzService(healthzRepository)
 	contractorService := contractors.NewContractorService(contractorRepository)
+	partnerService := partners.NewPartnerService(partnerRepository)
+
 	// handlers
-	return handlers.NewContainer(userService, healthzService, contractorService)
+	return handlers.NewContainer(userService, healthzService, contractorService, partnerService)
 }

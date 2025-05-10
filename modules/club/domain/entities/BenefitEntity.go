@@ -21,6 +21,6 @@ type BenefitEntity struct {
 	ContractorID  *int                `gorm:"null" name:"contractor_id"`
 	Contractor    *ContractorEntity   `gorm:"foreignKey:ContractorID" name:"contractor,omitempty"`
 	PartnerID     *int                `gorm:"null" name:"partner_id"`
-	Partner       *PartnersEntity     `gorm:"foreignKey:PartnerID" name:"partner,omitempty"`
+	Partner       *PartnerEntity      `gorm:"foreignKey:PartnerID" name:"partner,omitempty"`
 	BenefitItems  []BenefitItemEntity `gorm:"foreignKey:BenefitID" name:"benefit_items"`
 }

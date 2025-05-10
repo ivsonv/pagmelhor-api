@@ -20,7 +20,7 @@ type UsersBenefitUsageEntity struct {
 	UserID        int                      `gorm:"not null;index" name:"user_id"`
 	User          UserEntity               `gorm:"foreignKey:UserID"`
 	PartnerID     int                      `gorm:"not null;index" name:"partner_id"`
-	Partner       PartnersEntity           `gorm:"foreignKey:PartnerID"`
+	Partner       PartnerEntity            `gorm:"foreignKey:PartnerID"`
 	BenefitID     int                      `gorm:"not null;index" name:"benefit_id"`
 	Benefit       BenefitEntity            `gorm:"foreignKey:BenefitID"`
 	BenefitItemID *int                     `gorm:"index" name:"benefit_item_id"`

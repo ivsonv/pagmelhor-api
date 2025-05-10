@@ -4,14 +4,14 @@ import (
 	"app/modules/club/domain"
 )
 
-func (p PartnersEntity) TableName() string {
+func (p PartnerEntity) TableName() string {
 	return domain.SchemaClubName + ".partners"
 }
 
-type PartnersEntity struct {
+type PartnerEntity struct {
 	BaseEntity
 	Name            string `gorm:"not null" name:"name"`
-	CpfOrCnpj       string `gorm:"not null;unique" name:"cpf_cnpj"`
+	CpfCnpj         string `gorm:"not null;unique" name:"cpf_cnpj"`
 	Email           string `gorm:"not null;unique" name:"email"`
 	Slug            string `gorm:"not null;unique" name:"slug"`
 	Status          int16  `gorm:"not null;default:1" name:"status"`
