@@ -17,7 +17,10 @@ func NewContractorService(contractorRepository repository.IContractorRepository)
 }
 
 var (
-	ErrCreateContractor = results.NewError("CREATE_CONTRACTOR_ERROR", "error creating contractor", http.StatusInternalServerError)
-	ErrInvalidEntity    = results.NewError("INVALID_ENTITY", "invalid to mapentity", http.StatusBadRequest)
-	ErrTimeout          = results.NewError("TIMEOUT_CONTRACTOR_ERROR", "operation contractor timeout", http.StatusRequestTimeout)
+	ErrCreateContractor  = results.NewError("CREATE_CONTRACTOR_ERROR", "error creating contractor", http.StatusInternalServerError)
+	ErrInvalidEntity     = results.NewError("INVALID_ENTITY", "invalid to mapentity", http.StatusBadRequest)
+	ErrTimeoutOrCanceled = results.NewError("TIMEOUT_OR_CANCELED_CONTRACTOR_ERROR", "operation contractor timeout or canceled", http.StatusRequestTimeout)
+	ErrCpfCnpjDuplicated = results.NewError("CPF_CNPJ_DUPLICATED", "cpf/cnpj already exists", http.StatusConflict)
+	ErrEmailDuplicated   = results.NewError("EMAIL_DUPLICATED", "email already exists", http.StatusConflict)
+	ErrSlugDuplicated    = results.NewError("SLUG_DUPLICATED", "slug already exists", http.StatusConflict)
 )

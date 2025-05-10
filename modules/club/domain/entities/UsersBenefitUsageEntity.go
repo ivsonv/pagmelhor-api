@@ -11,18 +11,18 @@ func (u UsersBenefitUsageEntity) TableName() string {
 
 type UsersBenefitUsageEntity struct {
 	BaseEntity
-	VoucherCode   string                   `json:"voucher_code" gorm:"not null"`
-	Description   string                   `json:"description" gorm:"type:text"`
-	DiscountType  enums.DiscountType       `json:"discount_type" gorm:"type:varchar(20);check:discount_type IN ('percent', 'fixed')"`
-	DiscountValue float64                  `json:"discount_value" gorm:"type:decimal(10,2)"`
-	Notes         string                   `json:"notes" gorm:"type:text"`
-	Status        enums.BenefitUsageStatus `json:"status" gorm:"type:varchar(10);check:status IN ('used', 'reserved', 'cancelled')"`
-	UserID        int                      `json:"user_id" gorm:"not null;index"`
-	User          UserEntity               `json:"user" gorm:"foreignKey:UserID"`
-	PartnerID     int                      `json:"partner_id" gorm:"not null;index"`
-	Partner       PartnersEntity           `json:"partner" gorm:"foreignKey:PartnerID"`
-	BenefitID     int                      `json:"benefit_id" gorm:"not null;index"`
-	Benefit       BenefitEntity            `json:"benefit" gorm:"foreignKey:BenefitID"`
-	BenefitItemID *int                     `json:"benefit_item_id" gorm:"index"`
-	BenefitItem   *BenefitItemEntity       `json:"benefit_item,omitempty" gorm:"foreignKey:BenefitItemID"`
+	VoucherCode   string                   `gorm:"not null" name:"voucher_code"`
+	Description   string                   `gorm:"type:text" name:"description"`
+	DiscountType  enums.DiscountType       `gorm:"type:varchar(20);check:discount_type IN ('percent', 'fixed')" name:"discount_type"`
+	DiscountValue float64                  `gorm:"type:decimal(10,2)" name:"discount_value"`
+	Notes         string                   `gorm:"type:text" name:"notes"`
+	Status        enums.BenefitUsageStatus `gorm:"type:varchar(10);check:status IN ('used', 'reserved', 'cancelled')" name:"status"`
+	UserID        int                      `gorm:"not null;index" name:"user_id"`
+	User          UserEntity               `gorm:"foreignKey:UserID"`
+	PartnerID     int                      `gorm:"not null;index" name:"partner_id"`
+	Partner       PartnersEntity           `gorm:"foreignKey:PartnerID"`
+	BenefitID     int                      `gorm:"not null;index" name:"benefit_id"`
+	Benefit       BenefitEntity            `gorm:"foreignKey:BenefitID"`
+	BenefitItemID *int                     `gorm:"index" name:"benefit_item_id"`
+	BenefitItem   *BenefitItemEntity       `gorm:"foreignKey:BenefitItemID"`
 }

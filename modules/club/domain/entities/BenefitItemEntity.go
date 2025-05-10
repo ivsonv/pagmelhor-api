@@ -11,17 +11,17 @@ func (b BenefitItemEntity) TableName() string {
 
 type BenefitItemEntity struct {
 	BaseEntity
-	Name             string             `json:"name" gorm:"not null"`
-	CoveragePercent  float64            `json:"coverage_percent" gorm:"type:decimal(5,2)"`
-	LimitPerDay      float64            `json:"limit_per_day" gorm:"type:decimal(10,2)"`
-	LimitTotal       float64            `json:"limit_total" gorm:"type:decimal(10,2)"`
-	MaxCoverageValue float64            `json:"max_coverage_value" gorm:"type:decimal(10,2)"`
-	Unlimited        bool               `json:"unlimited" gorm:"default:false"`
-	Notes            string             `json:"notes" gorm:"type:text"`
-	Status           int16              `json:"status" gorm:"not null;default:1"`
-	OriginalPrice    float64            `json:"original_price" gorm:"type:decimal(10,2)"`
-	DiscountType     enums.DiscountType `json:"discount_type" gorm:"type:varchar(20);check:discount_type IN ('percent', 'fixed')"`
-	DiscountValue    float64            `json:"discount_value" gorm:"type:decimal(10,2)"`
-	BenefitID        int                `json:"benefit_id" gorm:"not null"`
-	Benefit          BenefitEntity      `json:"benefit,omitempty" gorm:"foreignKey:BenefitID"`
+	Name             string             `gorm:"not null" name:"name"`
+	CoveragePercent  float64            `gorm:"type:decimal(5,2)" name:"coverage_percent"`
+	LimitPerDay      float64            `gorm:"type:decimal(10,2)" name:"limit_per_day"`
+	LimitTotal       float64            `gorm:"type:decimal(10,2)" name:"limit_total"`
+	MaxCoverageValue float64            `gorm:"type:decimal(10,2)" name:"max_coverage_value"`
+	Unlimited        bool               `gorm:"default:false" name:"unlimited"`
+	Notes            string             `gorm:"type:text" name:"notes"`
+	Status           int16              `gorm:"not null;default:1" name:"status"`
+	OriginalPrice    float64            `gorm:"type:decimal(10,2)" name:"original_price"`
+	DiscountType     enums.DiscountType `gorm:"type:varchar(20);check:discount_type IN ('percent', 'fixed')" name:"discount_type"`
+	DiscountValue    float64            `gorm:"type:decimal(10,2)" name:"discount_value"`
+	BenefitID        int                `gorm:"not null" name:"benefit_id"`
+	Benefit          BenefitEntity      `gorm:"foreignKey:BenefitID" name:"benefit,omitempty"`
 }

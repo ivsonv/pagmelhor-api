@@ -1,9 +1,11 @@
 package contractors
 
 import (
+	"log"
 	"net/http"
 
 	requests "app/modules/club/domain/dto/requests/contractors"
+	"app/modules/club/domain/results"
 	"app/modules/club/utils"
 
 	"github.com/labstack/echo/v4"
@@ -12,9 +14,10 @@ import (
 func (h Handler) Create(c echo.Context) error {
 	request := requests.ContractorRequestDto{}
 
-	detailsErrors, err := utils.Bind(c, &request)
+	errors, err := utils.Bind(c, &request)
 	if err != nil {
-		return c.JSON(http.StatusBadRequest, detailsErrors)
+		log.Printf("Bind error in handler create contractor: %v", err)
+		return c.JSON(http.StatusBadRequest, results.NewErrorWithDetails("BIND_CREATE_CONTRACTOR_ERROR", "Erro ao processar a requisição", errors))
 	}
 
 	ctx, cancel := utils.GetContext(c.Request().Context())

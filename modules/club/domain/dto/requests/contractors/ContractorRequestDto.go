@@ -4,7 +4,7 @@ import "app/modules/club/domain/entities"
 
 type ContractorRequestDto struct {
 	Name            string `json:"name" validate:"required,min=3,max=100"`
-	CpfOrCnpj       string `json:"cpf_cnpj" validate:"required,cpf_cnpj"`
+	CpfCnpj         string `json:"cpf_cnpj" validate:"required,cpf_cnpj"`
 	Email           string `json:"email" validate:"required,email"`
 	Slug            string `json:"slug" validate:"required"`
 	Phone           string `json:"phone" validate:"omitempty,phone"`
@@ -13,7 +13,7 @@ type ContractorRequestDto struct {
 	Address         string `json:"address" validate:"omitempty,max=200"`
 	City            string `json:"city" validate:"omitempty,max=100"`
 	State           string `json:"state" validate:"omitempty,max=2"`
-	ZipCode         string `json:"zip_code" validate:"omitempty,max=8"`
+	ZipCode         string `json:"zip_code" validate:"omitempty,max=10"`
 	Description     string `json:"description" validate:"omitempty,max=1000"`
 	MetaTitle       string `json:"meta_title" validate:"omitempty,max=100"`
 	MetaDescription string `json:"meta_description" validate:"omitempty,max=200"`
@@ -23,7 +23,7 @@ type ContractorRequestDto struct {
 func (dto ContractorRequestDto) ToMapEntity() *entities.ContractorEntity {
 	return &entities.ContractorEntity{
 		Name:            dto.Name,
-		CpfOrCnpj:       dto.CpfOrCnpj,
+		CpfCnpj:         dto.CpfCnpj,
 		Email:           dto.Email,
 		Slug:            dto.Slug,
 		Phone:           dto.Phone,

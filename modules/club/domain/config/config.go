@@ -1,11 +1,18 @@
 package config
 
-import "time"
-
-const (
-	DefaultTimeout = 30 * time.Second
-	CreateTimeout  = 30 * time.Second
-	UpdateTimeout  = 30 * time.Second
-	DeleteTimeout  = 30 * time.Second
-	GetTimeout     = 30 * time.Second
+import (
+	"os"
+	"strconv"
+	"time"
 )
+
+var DefaultTimeout = time.Duration(getEnvInt("DEFAULT_CONTEXT_TIMEOUT", 30)) * time.Second
+
+func getEnvInt(key string, defaultValue int) int {
+	if value := os.Getenv(key); value != "" {
+		if intValue, err := strconv.Atoi(value); err == nil {
+			return intValue
+		}
+	}
+	return defaultValue
+}

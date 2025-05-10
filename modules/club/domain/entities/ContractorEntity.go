@@ -10,19 +10,19 @@ func (u ContractorEntity) TableName() string {
 
 type ContractorEntity struct {
 	BaseEntity
-	Name            string `json:"name" gorm:"not null"`
-	CpfOrCnpj       string `json:"cpf_cnpj" gorm:"not null;unique"`
-	Email           string `json:"email" gorm:"not null;unique"`
-	Slug            string `json:"slug" gorm:"not null;unique"`
-	Phone           string `json:"phone" gorm:"null"`
-	Password        string `json:"password" gorm:"null"`
-	Image           string `json:"image" gorm:"null"`
-	Address         string `json:"address" gorm:"null"`
-	City            string `json:"city" gorm:"null"`
-	State           string `json:"state" gorm:"null"`
-	ZipCode         string `json:"zip_code" gorm:"null"`
-	Description     string `json:"description" gorm:"type:text;null"`
-	MetaTitle       string `json:"meta_title" gorm:"null"`
-	MetaDescription string `json:"meta_description" gorm:"type:text;null"`
-	MetaKeywords    string `json:"meta_keywords" gorm:"type:text;null"`
+	Name            string `gorm:"not null" name:"name"`
+	CpfCnpj         string `gorm:"not null;unique" name:"cpf_cnpj"`
+	Email           string `gorm:"not null;unique" name:"email"`
+	Slug            string `gorm:"not null;unique" name:"slug"`
+	Phone           string `gorm:"null" name:"phone"`
+	Password        string `gorm:"null" name:"password"`
+	Image           string `gorm:"null" name:"image"`
+	Address         string `gorm:"null" name:"address"`
+	City            string `gorm:"null" name:"city"`
+	State           string `gorm:"null" name:"state"`
+	ZipCode         string `gorm:"null" name:"zip_code"`
+	Description     string `gorm:"type:text;null" name:"description"`
+	MetaTitle       string `gorm:"null" name:"meta_title"`
+	MetaDescription string `gorm:"type:text;null" name:"meta_description"`
+	MetaKeywords    string `gorm:"type:text;null" name:"meta_keywords"`
 }
