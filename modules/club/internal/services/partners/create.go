@@ -14,7 +14,7 @@ import (
 func (s *PartnerService) Create(ctx context.Context, req requests.CreatePartnerRequestDto) results.Result[responses.CreatePartnerResponseDto] {
 	entity := req.ToMapEntity()
 	if entity == nil {
-		log.Printf("ToMapEntity services.create partner: %v", ErrInvalidEntity)
+		log.Printf("ToMapEntity services.partners.create: %v", ErrInvalidEntity)
 		return results.Failure[responses.CreatePartnerResponseDto](ErrInvalidEntity)
 	}
 

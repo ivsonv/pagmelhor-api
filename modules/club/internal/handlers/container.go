@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"app/modules/club/domain/interfaces/services"
+	"app/modules/club/internal/handlers/benefits"
 	"app/modules/club/internal/handlers/contractors"
 	"app/modules/club/internal/handlers/healthz"
 	"app/modules/club/internal/handlers/partners"
@@ -15,6 +16,7 @@ type Container struct {
 	UsersHandler       users.Handler
 	ContractorsHandler contractors.Handler
 	PartnersHandler    partners.Handler
+	BenefitsHandler    benefits.Handler
 }
 
 func NewContainer(
@@ -22,12 +24,14 @@ func NewContainer(
 	healthzService services.IHealthzServices,
 	contractorService services.IContractorServices,
 	partnerService services.IPartnerServices,
+	benefitService services.IBenefitServices,
 ) *Container {
 	return &Container{
 		UsersHandler:       users.NewHandler(userService),
 		HealthzHandler:     healthz.NewHandler(healthzService),
 		ContractorsHandler: contractors.NewHandler(contractorService),
 		PartnersHandler:    partners.NewHandler(partnerService),
+		BenefitsHandler:    benefits.NewHandler(benefitService),
 	}
 }
 
@@ -46,4 +50,8 @@ func (c *Container) AddRouters(api *echo.Group) {
 	// partners routers
 	partners := api.Group("/partners")
 	partners.POST("", c.PartnersHandler.Create)
+
+	// benefits routers
+	benefits := api.Group("/benefits")
+	benefits.POST("", c.BenefitsHandler.Create)
 }

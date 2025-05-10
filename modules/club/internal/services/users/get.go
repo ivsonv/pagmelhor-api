@@ -5,13 +5,14 @@ import (
 	"app/modules/club/domain/results"
 	"app/modules/club/utils"
 	"context"
-	"log"
 )
 
 func (s *UserService) Get(ctx context.Context) results.Result[[]responses.GetUserResponseDto] {
 	items, err := s.userRepository.Get(ctx)
 	if err != nil {
-		log.Printf("error getting service users: %v", err)
+		if utils.IsTimeout(ctx) {
+			return results.Failure[[]responses.GetUserResponseDto](ErrTimeoutOrCancel)
+		}
 		return results.Failure[[]responses.GetUserResponseDto](ErrGetUsers)
 	}
 

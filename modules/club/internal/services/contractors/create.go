@@ -14,7 +14,7 @@ import (
 func (s *ContractorService) Create(ctx context.Context, req requests.CreateContractorRequestDto) results.Result[responses.CreateContractorResponseDto] {
 	entity := req.ToMapEntity()
 	if entity == nil {
-		log.Printf("ToMapEntity services.create contractor: %v", ErrInvalidEntity)
+		log.Printf("ToMapEntity services.contractors.create: %v", ErrInvalidEntity)
 		return results.Failure[responses.CreateContractorResponseDto](ErrInvalidEntity)
 	}
 

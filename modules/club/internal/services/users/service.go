@@ -16,6 +16,7 @@ func NewUserService(userRepository repository.IUserRepository) services.IUserSer
 }
 
 var (
-	ErrGetUsers  = results.NewError("GET_USERS_ERROR", "error getting users", http.StatusInternalServerError)
-	ErrNoContent = results.NewError("NO_CONTENT_ERROR", "user is empty", http.StatusNoContent)
+	ErrGetUsers        = results.NewError("GET_USERS_ERROR", "error getting users", http.StatusInternalServerError)
+	ErrNoContent       = results.NewError("NO_CONTENT_ERROR", "user is empty", http.StatusNoContent)
+	ErrTimeoutOrCancel = results.NewError("TIMEOUT_OR_CANCELED", "operation timeout or canceled", http.StatusRequestTimeout)
 )

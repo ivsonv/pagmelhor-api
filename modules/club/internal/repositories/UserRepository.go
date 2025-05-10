@@ -19,7 +19,7 @@ func NewUserRepository(repository *Repository) repository.IUserRepository {
 func (r *UserRepository) Get(ctx context.Context) ([]*entities.UserEntity, error) {
 	conn, err := r.repository.db.GetConnection(ctx)
 	if err != nil {
-		log.Printf("failed to get database connection in get users: %v", err)
+		log.Printf("failed to get database connection in repository.user.get: %v", err)
 		return nil, err
 	}
 

@@ -4,6 +4,7 @@ import (
 	"app/modules/club/domain/entities"
 	"app/modules/club/domain/interfaces/repository"
 	"context"
+	"log"
 	"os"
 )
 
@@ -18,24 +19,28 @@ func NewHealthzRepository(repository *Repository) repository.IHealthzRepository 
 func (r *HealthzRepository) Get(ctx context.Context) (*entities.HealthCheckRepository, error) {
 	db, err := r.repository.db.GetConnection(ctx)
 	if err != nil {
+		log.Printf("failed to get database connection in repository.healthz.get: %v", err)
 		return nil, err
 	}
 
-	var openConnections int
+	openConnections := 0
 	err = db.Raw("SELECT count(*)::int FROM pg_stat_activity WHERE datname = ?", os.Getenv("DB_NAME")).Scan(&openConnections).Error
 	if err != nil {
+		log.Printf("failed to repository.healthz.get: %v", err)
 		return nil, err
 	}
 
-	var version string
+	version := ""
 	err = db.Raw("SHOW server_version").Scan(&version).Error
 	if err != nil {
+		log.Printf("failed to repository.healthz.get: %v", err)
 		return nil, err
 	}
 
-	var maxConnections int
+	maxConnections := 0
 	err = db.Raw("SHOW max_connections").Scan(&maxConnections).Error
 	if err != nil {
+		log.Printf("failed to repository.healthz.get: %v", err)
 		return nil, err
 	}
 
@@ -56,6 +61,7 @@ func (r *HealthzRepository) Ping(ctx context.Context) (bool, error) {
 	var rows []any
 	err = db.Raw("SELECT 1").Scan(&rows).Error
 	if err != nil {
+		log.Printf("failed to repository.healthz.ping: %v", err)
 		return false, err
 	}
 

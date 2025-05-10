@@ -25,7 +25,7 @@ func (r *PartnerRepository) Create(ctx context.Context, partner *entities.Partne
 	}
 
 	if err := q.Create(&partner).Error; err != nil {
-		log.Printf("failed to create partner: %v\nquery: %s", err, q.Statement.SQL.String())
+		log.Printf("failed to repository.partner.create: %v\nquery: %s", err, q.Statement.SQL.String())
 		return err
 	}
 
@@ -38,8 +38,9 @@ func (r *PartnerRepository) GetByCpfCnpj(ctx context.Context, cpfCnpj string) (*
 		return nil, err
 	}
 
-	var partner entities.PartnerEntity
+	partner := entities.PartnerEntity{}
 	if err := q.Where("cpf_cnpj = ?", cpfCnpj).First(&partner).Error; err != nil {
+		log.Printf("failed to repository.partner.getByCpfCnpj: %v", err)
 		return nil, err
 	}
 
@@ -52,8 +53,9 @@ func (r *PartnerRepository) GetByEmail(ctx context.Context, email string) (*enti
 		return nil, err
 	}
 
-	var partner entities.PartnerEntity
+	partner := entities.PartnerEntity{}
 	if err := q.Where("email = ?", email).First(&partner).Error; err != nil {
+		log.Printf("failed to repository.partner.getByEmail: %v", err)
 		return nil, err
 	}
 
@@ -66,8 +68,9 @@ func (r *PartnerRepository) GetBySlug(ctx context.Context, slug string) (*entiti
 		return nil, err
 	}
 
-	var partner entities.PartnerEntity
+	partner := entities.PartnerEntity{}
 	if err := q.Where("slug = ?", slug).First(&partner).Error; err != nil {
+		log.Printf("failed to repository.partner.getBySlug: %v", err)
 		return nil, err
 	}
 
@@ -77,7 +80,7 @@ func (r *PartnerRepository) GetBySlug(ctx context.Context, slug string) (*entiti
 func (r *PartnerRepository) getTransaction(ctx context.Context, includeDeleted bool) (*gorm.DB, error) {
 	conn, err := r.repository.db.GetConnection(ctx)
 	if err != nil {
-		log.Printf("failed to get getTransaction partner repository: %v", err)
+		log.Printf("failed to get getTransaction repository.partner.getTransaction %v", err)
 		return nil, err
 	}
 
